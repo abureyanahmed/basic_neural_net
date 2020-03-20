@@ -1,0 +1,36 @@
+vi create_data.py
+python3 create_data.py training_data.txt 100
+python3 create_data.py testing_data.txt 100
+
+vi run_mlp.py
+python3 run_mlp.py training_data.txt testing_data.txt
+
+python3 create_data.py training_data2.txt 200
+python3 create_data.py testing_data2.txt 200
+python3 run_mlp.py training_data2.txt testing_data2.txt
+
+qsub -N spanner_mlp -o spanner_mlp.out -e spanner_mlp.err -V spanner_mlp.sh
+---------------------------------------------------------------------------------------------------
+Use tensorflow
+
+vi run_tf.py
+singularity exec ../GD2018/swig_test/cgal.simg python3 run_tf.py training_data.txt testing_data.txt
+
+singularity exec ../GD2018/swig_test/cgal.simg python3 run_tf.py training_data4.txt testing_data4.txt
+2019-10-18 22:19:21.893622: I tensorflow/core/platform/cpu_feature_guard.cc:142] Your CPU supports instructions that this TensorFlow binary was not compiled to use: AVX2 FMA
+2019-10-18 22:19:21.911866: I tensorflow/core/platform/profile_utils/cpu_utils.cc:94] CPU Frequency: 2299765000 Hz
+2019-10-18 22:19:21.913678: I tensorflow/compiler/xla/service/service.cc:168] XLA service 0x3cc52e0 executing computations on platform Host. Devices:
+2019-10-18 22:19:21.913703: I tensorflow/compiler/xla/service/service.cc:175]   StreamExecutor device (0): Host, Default Version
+Train on 200000 samples
+Epoch 1/5
+200000/200000 [==============================] - 19s 93us/sample - loss: 0.5572 - accuracy: 0.6917
+Epoch 2/5
+200000/200000 [==============================] - 18s 90us/sample - loss: 0.4632 - accuracy: 0.7623
+Epoch 3/5
+200000/200000 [==============================] - 18s 89us/sample - loss: 0.4317 - accuracy: 0.7838
+Epoch 4/5
+200000/200000 [==============================] - 18s 90us/sample - loss: 0.4123 - accuracy: 0.7973
+Epoch 5/5
+200000/200000 [==============================] - 18s 90us/sample - loss: 0.3962 - accuracy: 0.8080
+200000/1 - 9s - loss: 0.4056 - accuracy: 0.8167
+
